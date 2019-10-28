@@ -1,7 +1,4 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/home/kevin/work/etc/iResNet/examples/cifar10'
-let g:netrw_dirhist_2='/usr/lib/python3.5'
-let g:netrw_dirhist_3='/home/eyedea/EyedeaDeepLearning/EyedeaDeepLearning_CPP'
-let g:netrw_dirhist_4='/home/kevin/library/snpe-1.19.2/models/mnist/scripts'
-let g:netrw_dirhist_5='/home/kevin/work/eyedea/stereo_camera_calibration'
+let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_1='/home/kevin/work/eyedea/ai_challenge_19/track1/deep_sort_yolov3_eyedea'
+let g:netrw_dirhist_2='/usr/src/tensorrt/samples/python/yolov3_onnx'

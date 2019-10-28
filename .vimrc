@@ -13,9 +13,10 @@ autocmd InsertEnter,InsertLeave * set cul!
 
 "Change cursor shape between insert and normal mode in iTerm2.app
 "if $TERM_PROGRAM =~ "iTerm.app"
-"	let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-"	let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
-"endif
+if $TERM_PROGRAM =~ "iTerm"
+	let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
+	let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
+endif
 
 set list lcs=tab:\|\ 
 set paste
@@ -34,7 +35,7 @@ set number           " 행번호 표시, set nu 도 가능
 set fencs=ucs-bom,utf-8,euc-kr.latin1 " 한글 파일은 euc-kr로, 유니코드는 유니코드로
 set fileencoding=utf-8 " 파일저장인코딩
 set tenc=utf-8       " 터미널 인코딩
-"set expandtab        " 탭대신 스페이스
+set expandtab        " 탭대신 스페이스
 set hlsearch         " 검색어 강조, set hls 도 가능
 set ignorecase       " 검색시 대소문자 무시, set ic 도 가능
 set tabstop=4        " 탭을 4칸으로
@@ -59,7 +60,36 @@ highlight Comment term=bold cterm=bold ctermfg=4 " 코멘트 하이라이트
 set mouse=a          " vim에서 마우스 사용
 "set mouse=nicr         " vim에서 마우스 사용
 set t_Co=256         " 색 조정
+"set guicursor=i:ver25-iCursor   " cursor thickness
 vmap <C-C> "*y
+
+" Changing cursor shape per mode
+" 1 or 0 -> blinking block
+" 2 -> solid block
+" 3 -> blinking underscore
+" 4 -> solid underscore
+if exists('$TMUX')
+    " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
+    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+    autocmd VimLeave * silent !echo -ne "\033Ptmux;\033\033[0 q\033\\"
+else
+    let &t_SI .= "\<Esc>[4 q"
+    let &t_EI .= "\<Esc>[2 q"
+    autocmd VimLeave * silent !echo -ne "\033[0 q"
+endi
+
+
+" if you're using kitty, urxvt, st, or xterm
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+if !empty($TMUX)
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>[6 q\<Esc>\\"
+    let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>[4 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>[2 q\<Esc>\\"
+endif
+
 
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|public$\|log$\|tmp$\|vendor$',
