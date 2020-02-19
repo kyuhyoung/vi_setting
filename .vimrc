@@ -58,6 +58,7 @@ set history=1000     " vi 편집기록 기억갯수 .viminfo에 기록
 highlight Comment term=bold cterm=bold ctermfg=4 " 코멘트 하이라이트
 "set mouse=i          " vim에서 마우스 사용
 set mouse=a          " vim에서 마우스 사용
+set ttymouse=xterm2	" vim에서 마우스로 split heigt 조절"
 "set mouse=nicr         " vim에서 마우스 사용
 set t_Co=256         " 색 조정
 "set guicursor=i:ver25-iCursor   " cursor thickness
