@@ -1,2 +1,7 @@
 # vi_setting
-vi setting
+
+```console
+foo@bar:~$ git clone https://github.com/kyuhyoung/vi_setting.git
+foo@bar:~$ cd vi_setting
+foo@bar:~/vi_setting$ cp -r .vi* ~/
+```
