@@ -58,7 +58,8 @@ set history=1000     " vi 편집기록 기억갯수 .viminfo에 기록
 highlight Comment term=bold cterm=bold ctermfg=4 " 코멘트 하이라이트
 "set mouse=i          " vim에서 마우스 사용
 set mouse=a          " vim에서 마우스 사용
-set ttymouse=xterm2	" vim에서 마우스로 split heigt 조절"
+"set ttymouse=xterm2	" vim에서 마우스로 split heigt 조절"
+set ttymouse=sgr        " vim에서 마우스로 split heigt 조절 AI challenge 2020 때 접속한 docker에서 .vimrc의 mouse 사용 옵션이 안 먹혀서 헤매던 중 발견. https://github.com/Microsoft/WSL/issues/2183#issuecomment-315881809"
 "set mouse=nicr         " vim에서 마우스 사용
 set t_Co=256         " 색 조정
 "set guicursor=i:ver25-iCursor   " cursor thickness
