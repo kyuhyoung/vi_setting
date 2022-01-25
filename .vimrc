@@ -113,7 +113,8 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'nanotech/jellybeans.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'farmergreg/vim-lastplace'
-"Plugin 'Yggdroot/indentLine'
+Plugin 'Yggdroot/indentLine'
+nmap <F5> :NERDTreeToggle<CR>
 
 call vundle#end()            " required
 filetype plugin indent on    " required
