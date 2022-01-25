@@ -100,6 +100,8 @@ let g:ctrlp_custom_ignore = {
 
 "set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=~/.linuxbrew/opt/fzf
+
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -113,7 +115,16 @@ Plugin 'nanotech/jellybeans.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'farmergreg/vim-lastplace'
 Plugin 'Yggdroot/indentLine'
-call vundle#end()            " required
-nmap <F5> :NERDTreeToggle<CR>
 
+Plugin 'junegunn/fzf'
+Plugin 'vim-airline/vim-airline-themes'
+call vundle#end()            " required
+
+nmap <F5> :NERDTreeToggle<CR>
 filetype plugin indent on    " required
+let g:airline_theme='cobalt2'
+"let g:airline_theme='luna'
+"let g:airline_theme='papercolor'
+"let g:airline_theme='soda'
+"let g:airline_theme='base16_atelier_cave'
+"let g:airline_theme='base16_classic'
