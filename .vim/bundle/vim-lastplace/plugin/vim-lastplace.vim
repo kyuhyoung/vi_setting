@@ -4,7 +4,7 @@
 " Author:      Gregory L. Dietsche <vim@gregd.org>
 " Licence:     MIT
 " Website:     https://www.gregd.org/
-" Version:     3.1.1
+" Version:     3.2.1
 " ============================================================================
 
 if exists("b:loaded_lastplace_plugin") || &cp
@@ -69,12 +69,12 @@ fu! s:lastplace()
 		endif
 	endif
 	if foldclosed(".") != -1 && g:lastplace_open_folds
-		"if we're in a fold, make the current line visible
-		execute "normal! zv"
+		"if we're in a fold, make the current line visible and recenter screen
+		execute "normal! zvzz"
 	endif
 endf
 
 augroup lastplace_plugin
 	autocmd!
-	autocmd BufWinEnter * call s:lastplace()
+	autocmd BufRead * call s:lastplace()
 augroup END
