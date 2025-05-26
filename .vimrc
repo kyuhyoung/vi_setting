@@ -128,3 +128,6 @@ let g:airline_theme='papercolor'
 "let g:airline_theme='soda'
 "let g:airline_theme='base16_atelier_cave'
 "let g:airline_theme='base16_classic'
+" Auto-reload changed files
+set autoread
+autocmd FocusGained,BufEnter * checktime
