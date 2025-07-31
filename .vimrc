@@ -102,25 +102,29 @@ let g:ctrlp_custom_ignore = {
 set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.linuxbrew/opt/fzf
 
-call vundle#begin()
+call plug#begin()
 " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'scrooloose/nerdtree'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/syntastic'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'farmergreg/vim-lastplace'
-Plugin 'Yggdroot/indentLine'
+Plug 'VundleVim/Vundle.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdtree'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'scrooloose/syntastic'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'farmergreg/vim-lastplace'
+Plug 'Yggdroot/indentLine'
+Plug 'junegunn/fzf'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
+call plug#end()            " required
 
-Plugin 'junegunn/fzf'
-Plugin 'vim-airline/vim-airline-themes'
-call vundle#end()            " required
 
 nmap <F5> :NERDTreeToggle<CR>
+nmap <leader>c <Plug>OSCYankOperator
+nmap <leader>cc <leader>c_
+vmap <leader>c <Plug>OSCYankVisual
 filetype plugin indent on    " required
 "let g:airline_theme='cobalt2'
 "let g:airline_theme='luna'
@@ -130,4 +134,27 @@ let g:airline_theme='papercolor'
 "let g:airline_theme='base16_classic'
 " Auto-reload changed files
 set autoread
+" set -s set-clipboard on
+
+if (!has('nvim') && !has('clipboard_working'))
+    " In the event that the clipboard isn't working, it's quite likely that
+    " the + and * registers will not be distinct from the unnamed register. In
+    " this case, a:event.regname will always be '' (empty string). However, it
+    " can be the case that `has('clipboard_working')` is false, yet `+` is
+    " still distinct, so we want to check them all.
+    let s:VimOSCYankPostRegisters = ['', '+', '*']
+    " copy text to clipboard on both (y)ank and (d)elete
+    let s:VimOSCYankOperators = ['y', 'd']
+    function! s:VimOSCYankPostCallback(event)
+        if index(s:VimOSCYankPostRegisters, a:event.regname) != -1
+            \ && index(s:VimOSCYankOperators, a:event.operator) != -1
+            call OSCYankRegister(a:event.regname)
+        endif
+    endfunction
+    augroup VimOSCYankPost
+        autocmd!
+        autocmd TextYankPost * call s:VimOSCYankPostCallback(v:event)
+    augroup END
+endif
+
 autocmd FocusGained,BufEnter * checktime
