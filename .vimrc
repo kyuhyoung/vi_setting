@@ -158,3 +158,11 @@ if (!has('nvim') && !has('clipboard_working'))
 endif
 
 autocmd FocusGained,BufEnter * checktime
+
+" viminfo 는 보관소에 직접 기록 (심링크는 vim 이 덮어써서 못 씀)
+set viminfofile=/NHNHOME/WORKSPACE/26molit001_dbo/kevin/home/.viminfo
+
+" tmux 안에서: 마우스 드래그로 선택한 영역을 놓는 순간 tmux 버퍼로 복사 → 다른 pane에서 Ctrl+V로 붙임
+if !empty($TMUX)
+    vnoremap <silent> <LeftRelease> y:call system('tmux load-buffer -', @0)<CR>gv
+endif
