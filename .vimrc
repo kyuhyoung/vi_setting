@@ -164,5 +164,5 @@ set viminfofile=/NHNHOME/WORKSPACE/26molit001_dbo/kevin/home/.viminfo
 
 " tmux 안에서: 마우스 드래그로 선택한 영역을 놓는 순간 tmux 버퍼로 복사 → 다른 pane에서 Ctrl+V로 붙임
 if !empty($TMUX)
-    vnoremap <silent> <LeftRelease> y:call system('tmux load-buffer -', @0)<CR>gv
+    vnoremap <silent> <LeftRelease> y:call system('tmux load-buffer - && tmux save-buffer - <Bar> /NHNHOME/WORKSPACE/26molit001_dbo/kevin/work/etc/scripts/osc52-copy', @0)<CR>gv
 endif
